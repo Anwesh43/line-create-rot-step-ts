@@ -212,3 +212,25 @@ class LineCreateRotStep {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    lcrs : LineCreateRotStep = new LineCreateRotStep()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.lcrs.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.lcrs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.lcrs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
