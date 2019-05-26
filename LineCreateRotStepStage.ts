@@ -66,7 +66,10 @@ class DrawingUtil {
         context.lineCap = 'round'
         context.lineWidth = Math.min(w, h) / strokeFactor
         context.strokeStyle = foreColor
+        context.save()
+        context.translate(gap * (i + 1), gap * (i + 1))
         DrawingUtil.drawStepRotLine(context, sc1, sc2, size)
+        context.restore()
     }
 }
 
@@ -156,7 +159,7 @@ class CRSNode {
     state : State = new State()
 
     constructor(private i : number) {
-
+        this.addNeighbor()
     }
 
     addNeighbor() {
